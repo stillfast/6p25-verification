@@ -39,21 +39,30 @@ ACWF `verification-PBE-v1` 标准。
 
 ## 运行前提（自包含程度）
 
-**随仓库提供**：全部脚本与配置、`U.pbe-n-nc.UPF`（研究对象）、`requirements.txt`/`pyproject.toml`、
-`2-convergence/` 的扫描报告与 `cutoffs.json`。
+**随仓库提供**：全部脚本与配置、两个赝势（`U.pbe-n-nc.UPF` 研究对象 + `O_ONCV_PBE-1.0.upf`）、
+ACWF 十体系结构归档（`data/structures/`）、全电子平均参考数据（`data/reference/`，算 Δ/ν/ε 用）、
+`requirements.txt` / `pyproject.toml` / `environment.yml`、`2-convergence/` 的扫描报告与 `cutoffs.json`。
 
-**需要自备**（仓库里没有，按下面的方式准备）：
+**仍需自备**（仓库无法分发）：
 
 | 依赖 | 用途 | 获取方式 |
 |---|---|---|
-| `O_ONCV_PBE-1.0.upf`（PseudoDojo ONCV PBE，6 价电子，md5 `1322303c3d9d6d180a3549dee7f99d61`） | 氧化物体系 | 从 http://www.pseudo-dojo.org/ 下载，放到仓库根目录；**只要跑 4 个 U 单质就不需要它** |
 | AiiDA profile + `pw.x` code（默认 `qe@yeesuan`） | 所有计算 | `verdi quicksetup` / 现有 profile；改 `config.py` 的 `CODE_LABEL` |
-| ACWF `uranium-verification-PBE-v1` 结构组 | 1-preliminary 建结构子组 | 从 `acwf-verification-scripts/1-preliminary/acwf-verification_unaries-verification-PBE-v1_structures.aiida` 等归档导入（`verdi archive import`） |
-| 参考数据 `acwf_paper_plots/code-data/*.json` | 4-analyze 的 Δ/ν/ε 与对比 | 克隆 `aiidateam/acwf-verification-scripts` 放在本仓库同级目录，或设 `U14VE_ACWF_SCRIPTS` |
-| conda env（aiida-core 2.8 / aiida-quantumespresso 5.0 / common-workflows 1.0） | 运行环境 | 见 `requirements.txt` |
+| 已发表 code 的参考结果（`3-analyze/outputs/*.json`） | 4-analyze 的跨 code 对比 | `bash tools/fetch_reference_data.sh`，或设 `U14VE_ACWF_SCRIPTS` |
+| 集群/队列 | 真实提交 | 改 `config.py` 的 `COMPUTER_OPTIONS` |
 
-也就是说：**脚本和赝势对象是自包含的，但“从零到跑完”仍需要 AiiDA profile/code、结构归档和参考数据**。
-最小可运行路径：只跑 4 个 U 单质（`X/SC`、`X/BCC`、`X/FCC`、`X/Diamond`），只需本仓库的 `U.pbe-n-nc.UPF`。
+**最小可运行路径**：
+
+```bash
+bash tools/fetch_reference_data.sh      # 只影响最后的跨 code 对比，可后补
+python 1-preliminary/import_structures.py # 导入 data/structures/ 的结构归档（一次性）
+make verify                               # 之后按 Makefile 的 target 走
+```
+
+两个赝势都已就位，只跑 4 个 U 单质（`X/SC`、`X/BCC`、`X/FCC`、`X/Diamond`）无需额外下载。
+
+**许可**：`O_ONCV_PBE-1.0.upf` 是第三方 SG15/ONCV 赝势（CC BY-SA 4.0，M. Schlipf & F. Gygi），
+详见 `THIRD_PARTY_NOTICES.md`；其余代码为 MIT。
 
 ## 标准与截断
 
@@ -67,6 +76,7 @@ ACWF `verification-PBE-v1` 标准。
 
 ```bash
 cd 6p25-verification            # 克隆后的仓库目录
+python 1-preliminary/import_structures.py
 python 1-preliminary/install_pseudos.py
 python 1-preliminary/create_starting_subgroups.py    # 本项目默认建全部 10 个结构
 python 1-preliminary/verify_setup.py
@@ -75,6 +85,16 @@ python 2-convergence/run_cutoff_convergence.py --pseudos 6p25 \
 python 2-convergence/select_cutoffs.py --pseudos 6p25
 python 3-submit/launch_calculations_qe.py --pseudos 6p25 --max-memory-gb 100 --run
 bash 4-analyze/run_analysis.sh 6p25
+```
+
+或者用 `make`（同一个流程的封装，`RUN=1` 才会真的提交）：
+
+```bash
+make structures pseudos subgroups verify   # 准备
+make convergence RUN=1                     # 截断扫描
+make cutoffs                               # 选截断
+make submit RUN=1                          # 生产
+make analyze                               # 分析
 ```
 
 规模：扫描 8 个 EOS（56 SCF）+ 生产 10 个 EOS（70 SCF），合计 126 个标准 SCF

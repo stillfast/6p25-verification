@@ -9,13 +9,15 @@ venv/
 4-analyze/outputs/
 *.aiida
 5-export/outputs/
+!data/structures/*.aiida
 
-# Pseudopotentials: the U pseudo under test ships with this repository (it is
-# the object of the study); the third-party O pseudo is not distributed here
-# (see README "运行前提").
+# Pseudopotentials: both files ship with this repository. U.pbe-n-nc.UPF is the
+# object of the study; O_ONCV_PBE-1.0.upf is the third-party SG15 pseudo (CC BY-SA
+# 4.0, see THIRD_PARTY_NOTICES.md).
 *.UPF
-!U.pbe-n-nc.UPF
 *.upf
+!U.pbe-n-nc.UPF
+!O_ONCV_PBE-1.0.upf
 
 # Editors / OS
 .vscode/

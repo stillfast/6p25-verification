@@ -186,13 +186,23 @@ ACWF_SCRIPTS_DIR = Path(
         PROJECT_ROOT.parent / 'acwf-verification-scripts',
     )
 )
-REFERENCE_DATA_DIR = ACWF_SCRIPTS_DIR / 'acwf_paper_plots' / 'code-data'
-
 #: ``{set_kind: filename}`` with the all-electron reference EOS fits.
 REFERENCE_FILES = {
     'unaries': 'results-unaries-verification-PBE-v1-AE-average.json',
     'oxides': 'results-oxides-verification-PBE-v1-AE-average.json',
 }
+
+#: Copy of the two all-electron averages shipped with this repository, so the
+#: metrics run without the upstream ``acwf-verification-scripts`` checkout.
+LOCAL_REFERENCE_DIR = PROJECT_ROOT / 'data' / 'reference'
+
+#: Where the all-electron averages are read from: the shipped copy when present,
+#: otherwise the upstream checkout.
+REFERENCE_DATA_DIR = (
+    LOCAL_REFERENCE_DIR
+    if (LOCAL_REFERENCE_DIR / REFERENCE_FILES['unaries']).is_file()
+    else ACWF_SCRIPTS_DIR / 'acwf_paper_plots' / 'code-data'
+)
 
 #: The official, published ACWF runs of the *other* codes, one AiiDA set per code and
 #: per structure kind.  Unlike :data:`REFERENCE_FILES` -- the all-electron averages,
