@@ -8,6 +8,7 @@
 #   make cutoffs       pick the converged cutoffs into 2-convergence/cutoffs.json
 #   make submit        production EOS campaign (add RUN=1 to actually submit)
 #   make analyze       results, audit, metrics, comparison, plots, provenance CSV
+#   make all           preparation only (structures + pseudos + subgroups + verify)
 #
 # Every target runs in the current conda env; see README for setup.
 
@@ -47,4 +48,4 @@ submit:
 analyze:
 	bash 4-analyze/run_analysis.sh $(PSEUDOS)
 
-all: structures pseudos subgroups verify convergence cutoffs submit analyze
+all: structures pseudos subgroups verify
