@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "6p25-verification"
+version = "0.1.0"
+description = "Verification of the 14-valence-electron NC uranium pseudopotential (6p25) against the ACWF verification-PBE-v1 standard with Quantum ESPRESSO."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "liguozhou" }]
+keywords = ["aiida", "acwf", "verification", "quantum-espresso", "pseudopotential", "uranium"]
+classifiers = [
+  "Framework :: AiiDA",
+  "License :: OSI Approved :: MIT License",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+  "aiida-core>=2.8,<2.9",
+  "aiida-quantumespresso>=5.0,<5.1",
+  "aiida-common-workflows>=1.0,<1.1",
+  "aiida-pseudo>=1.7",
+  "aiida-submission-controller>=0.1",
+  "numpy>=1.24",
+  "scipy>=1.10",
+  "matplotlib>=3.7",
+  "pyyaml>=6.0",
+]
+
+[tool.setuptools]
+packages = ["common"]

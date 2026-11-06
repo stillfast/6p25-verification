@@ -1,0 +1,16 @@
+# Python packages this project needs on top of the `aiida` conda environment.
+# The environment used on this machine already has everything installed; this
+# file documents the requirements and can be used to recreate them elsewhere.
+#
+# Tested with:
+aiida-core==2.8.0
+aiida-quantumespresso==5.0.0
+aiida-common-workflows==1.0.1
+aiida-pseudo==1.7.2
+aiida-submission-controller==0.1.2
+
+# Analysis
+numpy>=1.24
+scipy>=1.10
+matplotlib>=3.7
+pyyaml>=6.0

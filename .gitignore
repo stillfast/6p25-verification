@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# AiiDA / analysis outputs (they belong to the upstream verification project)
+4-analyze/outputs/
+*.aiida
+5-export/outputs/
+
+# Pseudopotentials: not distributed with this repository (see README §1)
+*.UPF
+*.upf
+
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store

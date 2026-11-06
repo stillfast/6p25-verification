@@ -1,0 +1,18 @@
+==============================================================================
+U, PBE, NC, 14 valence electrons, scalar-relativistic, from `ai_v1/6p25` (rcut 6s 1.50 / 7s 1.20 / 6p 1.60 / 6d 2.40 / 5f 1.30 bohr; 6 projectors: 6S, 7S, 6P, 6D, 5F and a second 6P at occupation 0 with reference energy -0.25 Ry)   (set 'ai6p25v-6p25-verification-PBE-v1')
+==============================================================================
+  reference point: ecutwfc=250 Ry, dual=4 (ecutrho=1000 Ry)
+  structures     : ['O2U-XO2', 'U-X/FCC']
+
+   ecutwfc  dual  ecutrho          O2U-XO2         U-X/FCC   verdict
+  ----------------------------------------------------------------------------
+       110     4      440           0.1307          0.8418   not converged
+       150     4      600           0.0222          0.0169   converged
+       200     4      800           0.0133          0.0042   converged
+       250     4     1000           0.0000          0.0000   converged
+
+  ==> recommended: ecutwfc = 150 Ry, dual = 4, ecutrho = 600 Ry
+      (converged with nu <= 0.2 % between the plane-wave cutoff at 150 Ry and the reference at 250 Ry)
+
+Written: ./2-convergence/cutoffs.json
+The launcher (3-submit/launch_calculations_qe.py) picks these values up automatically.

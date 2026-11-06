@@ -1,0 +1,44 @@
+{
+  "6p25": {
+    "O": {
+      "ecutrho": 480.0,
+      "ecutwfc": 60.0
+    },
+    "U": {
+      "converged": true,
+      "dual": 4.0,
+      "ecutrho": 440.0,
+      "ecutwfc": 110.0,
+      "epsilon": {
+        "O3U2-X2O3": 0.033256,
+        "U-X/BCC": 0.068674
+      },
+      "nu_percent": {
+        "O3U2-X2O3": 0.11984,
+        "U-X/BCC": 0.19656
+      }
+    },
+    "_meta": {
+      "criterion": "nu",
+      "reference_point": {
+        "dual": 4.0,
+        "ecutwfc": 250.0
+      },
+      "tested_points": [
+        100.0,
+        110.0,
+        120.0,
+        150.0,
+        200.0,
+        250.0
+      ],
+      "tolerance": 0.2,
+      "tolerance_percent": 0.2
+    }
+  },
+  "_metadata": {
+    "criterion": "per-pseudopotential: the entry records which metric decided it (`criterion`: nu or epsilon, with `tolerance` and `reference_point`). The SSSP control protocol uses nu <= 0.2 %.",
+    "note": "O cutoffs are fixed to the recommended values of O_ONCV_PBE-1.0; the effective cutoff of a mixed U/O cell is the maximum over its elements.",
+    "tolerance_percent": null
+  }
+}

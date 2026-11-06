@@ -1,0 +1,36 @@
+{
+  "6p25": {
+    "O": {
+      "ecutrho": 480.0,
+      "ecutwfc": 60.0
+    },
+    "U": {
+      "converged": true,
+      "dual": 4.0,
+      "ecutrho": 600.0,
+      "ecutwfc": 150.0,
+      "nu_percent": {
+        "O2U-XO2": 0.02225,
+        "U-X/FCC": 0.01689
+      }
+    },
+    "_meta": {
+      "reference_point": {
+        "dual": 4.0,
+        "ecutwfc": 250.0
+      },
+      "tested_points": [
+        110.0,
+        150.0,
+        200.0,
+        250.0
+      ],
+      "tolerance_percent": 0.2
+    }
+  },
+  "_metadata": {
+    "criterion": "SSSP criteria.yml (standard): eos bounds [0.0, 0.2] on the nu-like distance between EOS fits",
+    "note": "O cutoffs are fixed to the recommended values of O_ONCV_PBE-1.0; the effective cutoff of a mixed U/O cell is the maximum over its elements.",
+    "tolerance_percent": 0.2
+  }
+}
