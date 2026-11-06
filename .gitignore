@@ -10,8 +10,11 @@ venv/
 *.aiida
 5-export/outputs/
 
-# Pseudopotentials: not distributed with this repository (see README §1)
+# Pseudopotentials: the U pseudo under test ships with this repository (it is
+# the object of the study); the third-party O pseudo is not distributed here
+# (see README "运行前提").
 *.UPF
+!U.pbe-n-nc.UPF
 *.upf
 
 # Editors / OS

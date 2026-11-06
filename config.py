@@ -36,8 +36,8 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent
 #: Directory holding the pseudopotential under test.  By default it is expected in
 #: the project root: symlink or copy ``U.pbe-n-nc.UPF`` next to this ``config.py``
-#: (the delivered file lives in the ``uranium-ppgen/ai_v1/6p25/``
-#: generation directory), or point
+#: (the delivered file is shipped in the repository root, generated in the
+#: ``uranium-ppgen/ai_v1/6p25/`` directory), or point
 #: ``AI6P25V_PSEUDO_DIR`` at the folder that contains it together with
 #: ``O_ONCV_PBE-1.0.upf``.
 PSEUDO_DIR = Path(os.environ.get('AI6P25V_PSEUDO_DIR', PROJECT_ROOT))

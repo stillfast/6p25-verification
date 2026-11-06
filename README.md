@@ -1,7 +1,7 @@
 # 6p25-verification
 
-**对象**：`U.pbe-n-nc.UPF` —— ld1.x 生成的铀 **14 价电子**模守恒赝势，来自
-`uranium-ppgen/ai_v1/6p25/`（本机生成目录；md5 `024f9a435d4b4c50e9267d14ff369f4e`）。
+**对象**：`U.pbe-n-nc.UPF` —— ld1.x 生成的铀 **14 价电子**模守恒赝势，**随本仓库分发**
+（仓库根目录，md5 `024f9a435d4b4c50e9267d14ff369f4e`；原始生成目录为 `uranium-ppgen/ai_v1/6p25/`）。
 **范围**：**全部 10 个 ACWF 体系**（4 单质 + 6 氧化物），每个体系一条 7 点 EOS，
 ACWF `verification-PBE-v1` 标准。
 
@@ -36,6 +36,24 @@ ACWF `verification-PBE-v1` 标准。
 | `ld1.test` 最差 | 5F 0.08 mRy |
 | 条件数 | `cond(S) = 9.66×10⁴`、`cond(D) = 797` |
 | UPF 头推荐截断 | 无（`wfc_cutoff = 0`），必须自己扫 |
+
+## 运行前提（自包含程度）
+
+**随仓库提供**：全部脚本与配置、`U.pbe-n-nc.UPF`（研究对象）、`requirements.txt`/`pyproject.toml`、
+`2-convergence/` 的扫描报告与 `cutoffs.json`。
+
+**需要自备**（仓库里没有，按下面的方式准备）：
+
+| 依赖 | 用途 | 获取方式 |
+|---|---|---|
+| `O_ONCV_PBE-1.0.upf`（PseudoDojo ONCV PBE，6 价电子，md5 `1322303c3d9d6d180a3549dee7f99d61`） | 氧化物体系 | 从 http://www.pseudo-dojo.org/ 下载，放到仓库根目录；**只要跑 4 个 U 单质就不需要它** |
+| AiiDA profile + `pw.x` code（默认 `qe@yeesuan`） | 所有计算 | `verdi quicksetup` / 现有 profile；改 `config.py` 的 `CODE_LABEL` |
+| ACWF `uranium-verification-PBE-v1` 结构组 | 1-preliminary 建结构子组 | 从 `acwf-verification-scripts/1-preliminary/acwf-verification_unaries-verification-PBE-v1_structures.aiida` 等归档导入（`verdi archive import`） |
+| 参考数据 `acwf_paper_plots/code-data/*.json` | 4-analyze 的 Δ/ν/ε 与对比 | 克隆 `aiidateam/acwf-verification-scripts` 放在本仓库同级目录，或设 `U14VE_ACWF_SCRIPTS` |
+| conda env（aiida-core 2.8 / aiida-quantumespresso 5.0 / common-workflows 1.0） | 运行环境 | 见 `requirements.txt` |
+
+也就是说：**脚本和赝势对象是自包含的，但“从零到跑完”仍需要 AiiDA profile/code、结构归档和参考数据**。
+最小可运行路径：只跑 4 个 U 单质（`X/SC`、`X/BCC`、`X/FCC`、`X/Diamond`），只需本仓库的 `U.pbe-n-nc.UPF`。
 
 ## 标准与截断
 
